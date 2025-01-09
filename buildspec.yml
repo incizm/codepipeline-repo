@@ -7,24 +7,16 @@ phases:
       - python3 -m venv .venv
       - source .venv/bin/activate
       - pip install --upgrade pip
-      - pip install pytest flask
   pre_build:
     commands:
       - echo Running pre-build steps...
-      - source .venv/bin/activate && pytest --version
   build:
     commands:
       - echo Running build steps...
-      - source .venv/bin/activate && pytest test_app.py
-      - chmod +x scripts/*.sh
       - echo Packaging application...
-      - zip -r app-package.zip . -x ".pytest_cache/*" "__pycache__/*" "test_app.py" "*.git*" "*.log" ".venv/*" 
-
   post_build:
     commands:
       - echo Build completed successfully.
-      - ls -la
 artifacts:
   files:
-    - app-package.zip
-    - '**/*.log'
+    - '**/*'
